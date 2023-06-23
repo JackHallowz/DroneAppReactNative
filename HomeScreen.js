@@ -1,10 +1,6 @@
 import { View, Text , SafeAreaView, Image, StyleSheet, Button, ImageBackground} from "react-native";
-
 import React, { useState } from "react";
-import Logo from '../FinalProject/assets/sword.png'
 import { TextInput } from "react-native-gesture-handler";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import background from '../FinalProject/assets/Background.png'
 
 const HomeScreen = ({navigation}) =>
 {
@@ -14,7 +10,7 @@ const HomeScreen = ({navigation}) =>
 
     return(
         
-        <ImageBackground  source={background} resizeMode="cover" style={{width:'100%',height:'100%',justifyContent:"center"}} >
+        <ImageBackground  source={{uri:'https://c4.wallpaperflare.com/wallpaper/536/671/770/genshin-impact-paimon-genshin-impact-video-game-characters-video-game-art-video-game-girls-hd-wallpaper-preview.jpg'}} resizeMode="cover" style={{width:'100%',height:'100%',justifyContent:"center"}} >
              
             {/* <Image source={Logo} style={styles.Logo} />    */}
             

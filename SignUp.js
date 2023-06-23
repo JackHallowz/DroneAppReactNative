@@ -3,19 +3,20 @@ import {View, Text, Image, StyleSheet, Button,} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { TextInput } from 'react-native-gesture-handler';
-import Icon from '../FinalProject/assets/Icon-SignUp.png';
+// import Icon from '../FinalProject/assets/Icon-SignUp.png';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+
 function SignUp () 
 {   
-    const [Email, setEmail] = useState('e.g kidsaveoursoul');
+    const [Email, setEmail] = useState('');
     const [Name, setName] = useState('');
     const [Password, setPassword] = useState('');
     const [Phone, setPhone] = useState('');
 
     return(
         <View style={styles.Screen }>
-            <Image source={Icon} resizeMode='contain' style={styles.Logo}/>
+            <Image source={require('../FinalProject/assets/Icon-SignUp.png')} resizeMode='contain' style={styles.Logo}/>
             <Text style={styles.TextUserName}> Full Name </Text>
             <TextInput style={styles.inputContainer } placeholder='Required' onChangeText={(val)=>setName(val)}></TextInput>
             <Text style={styles.TextUserName}> Phone Number </Text>
@@ -35,10 +36,7 @@ function SignUp ()
     );
         
 }
-function changetext () 
-{
 
-}
 const styles = StyleSheet.create(
     {
         inputContainer:
