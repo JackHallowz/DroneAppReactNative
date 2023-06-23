@@ -15,7 +15,7 @@ function SignUp ()
 
     return(
         <View style={styles.Screen }>
-            <Image source={require('../FinalProject/assets/Icon-SignUp.png')} resizeMode='contain' style={styles.Logo}/>
+            <Image source={require('../FinalProject/assets/Icon-SignUp.png')} resizeMode= 'contain' style={styles.Logo}/>
             <Text style={styles.TextUserName}> Full Name </Text>
             <TextInput style={styles.inputContainer } placeholder='Required' onChangeText={(val)=>setName(val)}></TextInput>
             <Text style={styles.TextUserName}> Phone Number </Text>
