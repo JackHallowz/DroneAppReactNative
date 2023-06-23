@@ -3,7 +3,6 @@ import {View, Text, Image, StyleSheet, Button,} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { TextInput } from 'react-native-gesture-handler';
-// import Icon from '../FinalProject/assets/Icon-SignUp.png';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 

@@ -12,7 +12,7 @@ const HomeScreen = ({navigation}) =>
         
         <ImageBackground  source={{uri:'https://c4.wallpaperflare.com/wallpaper/536/671/770/genshin-impact-paimon-genshin-impact-video-game-characters-video-game-art-video-game-girls-hd-wallpaper-preview.jpg'}} resizeMode="cover" style={{width:'100%',height:'100%',justifyContent:"center"}} >
              
-            {/* <Image source={Logo} style={styles.Logo} />    */}
+           
             
             <View>
                 <Text style={styles.TextUserName}> UserName </Text>
