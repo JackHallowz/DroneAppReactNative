@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { TextInput } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import Icon from uri='https://static.vecteezy.com/system/resources/previews/002/405/021/original/baby-cats-icon-illustration-vector.jpg';
 function SignUp () 
 {   
     const [Email, setEmail] = useState('');
@@ -15,7 +15,7 @@ function SignUp ()
 
     return(
         <View style={styles.Screen }>
-            <Image source={require('../FinalProject/assets/Icon-SignUp.png')} resizeMode= 'contain' style={styles.Logo}/>
+            <Image source={Icon} resizeMode= 'contain' style={styles.Logo}/>
             <Text style={styles.TextUserName}> Full Name </Text>
             <TextInput style={styles.inputContainer } placeholder='Required' onChangeText={(val)=>setName(val)}></TextInput>
             <Text style={styles.TextUserName}> Phone Number </Text>
