@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,SetStateAction} from 'react';
 import {View, Text, Image, StyleSheet, Button,} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -6,6 +6,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { Zocial } from '@expo/vector-icons';
 import auth from '@react-native-firebase/auth';
+
 function SignUp () 
 {   
     const [Email, setEmail] = useState('');
@@ -27,13 +28,12 @@ function SignUp ()
             }
             console.error(error);
         }
-            
-        )
+        )   
         
     }
     return(
         <View style={styles.Screen }>
-            <Image source={{uri:'https://previews.123rf.com/images/uo7/uo72207/uo7220700115/189206049-cute-cartoon-little-baby-cat-icon-cat-sleeping-on-the-floor-cat-with-gray-color-cartoon.jpg'}} resizeMode= 'contain' style={styles.Logo}/>
+            <Image source={{uri:'https://static.vecteezy.com/system/resources/previews/002/405/021/original/baby-cats-icon-illustration-vector.jpg'}} resizeMode= 'contain' style={styles.Logo}/>
             {/* <Text style={styles.TextUserName}> Full Name </Text>
             <TextInput style={styles.inputContainer } placeholder='Required' onChangeText={(val)=>setName(val)}></TextInput>
             <Text style={styles.TextUserName}> Phone Number </Text>
@@ -41,14 +41,15 @@ function SignUp ()
                 <AntDesign name="phone" size={18} color="black" />
             </TextInput> */}
             <Text style={styles.TextUserName}> Email* </Text>
-            <TextInput style={styles.inputContainer} placeholder='Required' onChangeText={(val)=>setEmail(val)}>
-                <Zocial name="email" size={18} color="black"  />
+            
+            <TextInput   style={styles.inputContainer} placeholder='Required' onChangeText={(val)=>setEmail(val)}  >
+               
             </TextInput>
             <Text style={styles.TextUserName}> Password* </Text>
-            <TextInput style={styles.inputContainer} placeholder='less than 20 words' secureTextEntry  onChangeText={(val)=>setPassword(val)}>
+            <TextInput style={styles.inputContainer} placeholder='less than 20 words' secureTextEntry  onChangeText={(val)=>setPassword(val)}  >
             </TextInput>
             <View style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
-                <Button title="Create New Account" onPress={signinchange} />
+                <Button title="Create New Account" onPress={signinchange}/>
             </View>
         </View>
     );
@@ -59,15 +60,17 @@ const styles = StyleSheet.create(
     {
         inputContainer:
         {
+            borderWidth:3,
             maxHeight:50,
             borderWidth: 1,
             borderColor: '#777',
-            padding: 15,
+            padding: 10,
             margin: 1,
             maxWidth:'100%',
             width: 300,
             alignSelf: 'center',
-            color:'black'
+            color:'black',
+            
         },
         TextUserName:
         {
