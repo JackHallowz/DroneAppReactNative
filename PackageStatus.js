@@ -7,7 +7,7 @@ import { RNCamera } from 'react-native-camera';
 const PackageStatus = () => {
 
   return (
-    
+    <QRCode value='Clive x Jill'/>
     
   );
 }
