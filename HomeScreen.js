@@ -1,32 +1,60 @@
 import { View, Text , SafeAreaView, Image, StyleSheet, Button, ImageBackground} from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState,useCallback}   from "react";
 import { TextInput } from "react-native-gesture-handler";
+import auth from '@react-native-firebase/auth';
+
+
 
 const HomeScreen = ({navigation}) =>
 {
-    const [Username, setUsername] = useState('Enter');
-    const [Passowrd, setPassword] = useState('Enter');
+    const [Username, setUsername] = useState('');
+    const [Password, setPassword] = useState('');
     const [hidePass, setHidePass] = useState(true);
+    const [User, setUser] = useState();
+    const [initializing, setInitializing] = useState(true);
 
+    const clearinput = useCallback(()=> {setUsername('')},[] );
+    
+
+    function onAuthStateChanged(User) {
+        setUser(User);
+        if(initializing) setInitializing(false);
+    }
+
+    useEffect(()=>{
+        const subcriber = auth().onAuthStateChanged(onAuthStateChanged);
+        clearinput;
+        return subcriber;
+    },[])
+    if(initializing) return null;   
+    const loginchange = () => 
+    {
+        auth().signInWithEmailAndPassword(Username,Password)
+        .then( userCredentials => {
+            const user = userCredentials.user;
+            console.log('Logged under',user.email)
+            navigation.navigate("UserScreen");
+        }) 
+        .catch(error => alert(error))
+    }
     return(
         
-        <ImageBackground  source={{uri:'https://c4.wallpaperflare.com/wallpaper/536/671/770/genshin-impact-paimon-genshin-impact-video-game-characters-video-game-art-video-game-girls-hd-wallpaper-preview.jpg'}} resizeMode="cover" style={{width:'100%',height:'100%',justifyContent:"center"}} >
-             
-           
+        <ImageBackground source={{uri:'https://c4.wallpaperflare.com/wallpaper/536/671/770/genshin-impact-paimon-genshin-impact-video-game-characters-video-game-art-video-game-girls-hd-wallpaper-preview.jpg'}} resizeMode="cover" style={{width:'100%',height:'100%', justifyContent:'center'} }  >
             
-            <View>
-                <Text style={styles.TextUserName}> UserName </Text>
-                <TextInput style={styles.inputContainer} placeholder= "Enter" onChangeText={(val)=>setUsername(val)}  > </TextInput>
+            <View style={styles.container}>
+                <Text style={styles.TextUserName}  > Email </Text>
+                <TextInput style={styles.inputContainer} Username={Username} onChangeText={setUsername }> </TextInput>
                 <Text style={styles.TextUserName}> Password </Text>
-                <TextInput style={styles.inputContainer} onChangeText={(val)=>setPassword(val)}  secureTextEntry={true} placeholder="Password" password={true}> </TextInput>
+                <TextInput style={styles.inputContainer} Password ={Password} onChangeText={setPassword}  > </TextInput>
+            
+            <View style={{marginVertical:10}}>
+                <Button style={styles.Button} title="Log In"  onPress={loginchange}/>  
             </View>
             <View style={{marginVertical:10}}>
-                <Button style={styles.Button} title="Log In"  />  
+                <Button style={styles.Button} title="Sign Up" onPress={()=> navigation.navigate('Sign Up')} /> 
             </View>
-            <View style={{marginVertical:10}}>
-                <Button style={styles.Button} title=" Sign Up" onPress={()=> navigation.navigate('Sign Up')} /> 
+            <Button style={styles.Button} title="Clear" onPress={clearinput} />
             </View>
-
                     
 
         </ImageBackground>
@@ -35,60 +63,46 @@ const HomeScreen = ({navigation}) =>
     );
 };
 
+
 export default HomeScreen;
 
 const styles = StyleSheet.create(
     {
         inputContainer:
-        {
-            
-            maxHeight:10,
-            borderWidth: 2,
-            borderColor: '#777',
-            padding: 10,
-            margin: 4,
-            maxWidth:'100%',
-            
-            outlineColor: "black",
-            placeholderTextColor: "#9a73ef",
-            maxHeight: '30%',
-            borderColor: 'white',
+        {   
+            margin:3,
+            borderColor:'white',
+            borderWidth: 3,
+            marginLeft:1,
+            width: 300,
             color:'white',
+            padding:10,
+            paddingRight:3,
             
         },
-        Logo:
-        {          
-            flex: 1,
-            maxHeight: 200,
-            maxWidth: 200,
-            alignSelf:'center'
+        container:
+        {
+            alignSelf:"center",
         },
         TextUserName:
         {
-            flex: 1,
             color: 'black',
-            marginLeft: 10,
             fontWeight: 'bold',
-            alignItems:'center',
-            color:'white'
-        },
-        Container:
-        {
-            flex: 1,
-            alignItems:'center',
-            backgroundColor: '#F5FCFF',
+            color:'white',
+            fontSize:15,
             
         },
         Button:
         {
-            flex:1,
-            padding: 15,
+            
+            padding: 10,
             borderRadius: 5,
         },
         Title:
         {
-            justifyContent:'center',
-            alignSelf: 'center',
+            flex:2,
+            flexDirection:'column',
+            
             
         },
         Spacing:
