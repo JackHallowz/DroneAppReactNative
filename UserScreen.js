@@ -1,14 +1,19 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, Button} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import auth from '@react-native-firebase/auth';
-function UserScreen  ()
+import { useNavigation } from '@react-navigation/native';
+
+
+
+const UserScreen = () =>
 {
+    
     const user = auth().currentUser;
-   
+    const navigation = useNavigation();
         return (
+            
         <SafeAreaView style={styles.Title}>
             <View style={styles.Title}>
             <Text>
@@ -17,14 +22,16 @@ function UserScreen  ()
             </Text>
             </View>
             <View style={styles.Middle}>
-                <Button styles={styles.ButtonStyle} title='Order Status'/>
-
+                <Button styles={styles.ButtonStyle} title='Order Status' onPress={()=>navigation.navigate('PackageStatus')}/>
+                <Button styles={styles.ButtonStyle} title='Account Setting' />
+                <Button styles={styles.ButtonStyle} color='black' title='Log Out' onPress={()=> auth().signOut}/>
             </View>
             <View style={styles.Bottom}>
             </View>
         </SafeAreaView>
     );
 };
+
 
 const styles = StyleSheet.create(
     {
@@ -39,8 +46,9 @@ const styles = StyleSheet.create(
         {
             flex:2,
             flexDirection:"row",
-            backgroundColor:'black',
-            marginTop:150,
+            marginTop:250,
+            justifyContent:"space-around"
+            
         },
         ButtonStyle:
         {
@@ -50,6 +58,7 @@ const styles = StyleSheet.create(
         },
         Bottom:
         {
+            marginTop:50,
             flex:3,
         },
 

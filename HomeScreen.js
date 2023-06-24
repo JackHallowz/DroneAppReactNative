@@ -2,17 +2,18 @@ import { View, Text , SafeAreaView, Image, StyleSheet, Button, ImageBackground} 
 import React, { useEffect, useState,useCallback}   from "react";
 import { TextInput } from "react-native-gesture-handler";
 import auth from '@react-native-firebase/auth';
+import UserScreen from "./UserScreen";
+import { useNavigation } from '@react-navigation/native';
 
 
-
-const HomeScreen = ({navigation}) =>
+const HomeScreen = ({}) =>
 {
     const [Username, setUsername] = useState('');
     const [Password, setPassword] = useState('');
     const [hidePass, setHidePass] = useState(true);
     const [User, setUser] = useState();
     const [initializing, setInitializing] = useState(true);
-
+    const navigation = useNavigation();
     const clearinput = useCallback(()=> {setUsername('')},[] );
     
 
@@ -62,6 +63,7 @@ const HomeScreen = ({navigation}) =>
        
     );
 };
+
 
 
 export default HomeScreen;
