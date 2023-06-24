@@ -13,13 +13,17 @@ function SignUp ()
     const [Password, setPassword] = useState('');
     const [Phone, setPhone] = useState('');
 
+    // function signinchange()
+    // {
+
+    // }
     return(
         <View style={styles.Screen }>
             <Image source={{uri:'https://static.vecteezy.com/system/resources/previews/002/405/021/original/baby-cats-icon-illustration-vector.jpg'}} resizeMode= 'contain' style={styles.Logo}/>
             <Text style={styles.TextUserName}> Full Name </Text>
             <TextInput style={styles.inputContainer } placeholder='Required' onChangeText={(val)=>setName(val)}></TextInput>
             <Text style={styles.TextUserName}> Phone Number </Text>
-            <TextInput style={styles.inputContainer } placeholder='Optional'>
+            <TextInput style={styles.inputContainer } placeholder='Optional' numberOfLines={}>
                 <AntDesign name="phone" size={18} color="black" />
             </TextInput>
             <Text style={styles.TextUserName}> Email* </Text>
@@ -29,7 +33,7 @@ function SignUp ()
             <Text style={styles.TextUserName}> Password* </Text>
             <TextInput style={styles.inputContainer} placeholder='less than 20 words' password={true}></TextInput>
             <View style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
-                <Button title="Create New Account" />
+                <Button title="Create New Account"  />
             </View>
         </View>
     );
@@ -49,7 +53,7 @@ const styles = StyleSheet.create(
             maxWidth:'100%',
             width: 300,
             alignSelf: 'center',
-            
+            color:'black'
         },
         TextUserName:
         {
