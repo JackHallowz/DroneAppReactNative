@@ -6,6 +6,7 @@ import HomeScreen from './HomeScreen';
 import SignUp from './SignUp';
 import UserScreen from './UserScreen';
 import PackageStatus from './PackageStatus';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const Stack = createStackNavigator();
 
 

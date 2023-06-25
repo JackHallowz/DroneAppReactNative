@@ -19,7 +19,7 @@ const UserScreen = () =>
             <Text>
                 UserName: {user.email } {"\n"} 
                 ID: {user.uid} {"\n"}
-            </Text>
+            </Text> 
             </View>
             <View style={styles.Middle}>
                 <Button styles={styles.ButtonStyle} title='Order Status' onPress={()=>navigation.navigate('PackageStatus')}/>
