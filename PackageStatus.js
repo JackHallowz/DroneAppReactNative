@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 import {firebase} from '@react-native-firebase/database';
-import {FlatList, StyleSheet, View,Text,StatusBar} from 'react-native';
+import {FlatList, StyleSheet, View,Text,StatusBar,SectionList,VirtualizedList} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const reference = firebase.app().database('https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app').ref('/Lists').on('value',snapshot=> {console.log('user data:', snapshot.val())});
 
@@ -18,14 +19,36 @@ const DATA = [
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    title: 'Second Item', 
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     title: 'Third Item',
   },
 ];
-
+const data =
+[
+  {"books": {"ID": "gadafa3213", "Position": "HCM"}}
+];
+const DATA_1 = [
+  
+  {
+    title: 'Main dishes',
+    data: ['Pizza', 'Burger', 'Risotto'],
+  },
+  {
+    title: 'Sides',
+    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+  },
+  {
+    title: 'Drinks',
+    data: ['Water', 'Coke', 'Beer'],
+  },
+  {
+    title: 'Desserts',
+    data: ['Cheese Cake', 'Ice Cream'],
+  },
+];
 const PackageStatus = () => {
 
   // useEffect(()=>{
@@ -34,14 +57,13 @@ const PackageStatus = () => {
   
   return (
     
-    <View style={styles.container}>
-        <FlatList
-        data = {DATA} 
-        renderItem={({item}) => <Item title={item.title} />}
-        keyExtractor={item => item.id}
-      />
+    <SafeAreaView style={styles.container}>
         
-      </View>
+        <Text style={{color:'black',justifyContent:'center'}}>
+          
+          {data.pop()}
+        </Text>
+      </SafeAreaView>
 
   );
 }
@@ -49,16 +71,19 @@ const PackageStatus = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    alignItems:'center'
   },
   item: {
     backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 8,
-    marginHorizontal: 16,
   },
   title: {
     fontSize: 32,
+  },
+  header: {
+    fontSize: 32,
+    backgroundColor: '#fff',
   },
 });
 export default PackageStatus;
