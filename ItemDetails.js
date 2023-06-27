@@ -1,7 +1,7 @@
 import React, { useEffect,useState,useCallback, } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import {TextInput,SafeAreaView,StyleSheet,Text,View,FlatList,SectionList } from 'react-native';
-import {firebase} from '@react-native-firebase/database';
+import {firebase, } from '@react-native-firebase/database';
 
 import GettingData from './GettingData';
 var ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app';
@@ -11,48 +11,39 @@ var onchangeval;
 var receive;
 
 const ItemDetails = ({route,navigation}) => {
- 
   var name = route.params
-  //console.log(name)
+  
+
+    const zz = Object.values(name)
+    
+    console.log(zz[0])
+    
+  
   
   //console.log(differ) 
-  var [datanow, setdatanow] = useState(0)
-
+  const [datanow, setdatanow] = useState([])
+  const [keys, setkeys] = useState([])
+  const [value,setvalue] = useState([])
   useEffect(() => {
-    firebase.app().database(ref).ref('/Lists' ).child('Books').once('value', snapshot =>{ console.log(receive = snapshot.val())})
-    if (datanow < 2) setdatanow ((datanow) => datanow + 1)
-    console.log(receive)
-  },[receive,datanow])
+    const reference = firebase.app().database(ref).ref(`${zz[1]}` ).child(`${zz[0]}`).on('value', snapshot =>{ const data = snapshot.val(); const newposts = Object.entries(data);setdatanow(newposts); setkeys(Object.keys(data)); setvalue(Object.values(data))})
     
+  },[])
+
+ 
   
-    
+  
   
  
   return ( 
     
     <SafeAreaView style={styles.container}> 
 
-        {/* <FlatList
-        data={realdata}
-        keyExtractor={ item => item.ID}
+        <FlatList
+        data={datanow}
         renderItem={({item}) =>(
           <Text style={styles.keys}> {item}</Text>
-        )}/> */}
-        {/* <SectionList
-        sections={realdata}
-        renderItem={({items}) => (
-          <View>
-            <Text>
-              {items}
-            </Text>
-          </View>
-        )}
-        renderSectionHeader={ ({sections: {ID}}) => (
-          <Text>
-            {ID}
-          </Text>
-        )}
-        />  */}
+        )}/>
+ 
     </SafeAreaView>
       
   )

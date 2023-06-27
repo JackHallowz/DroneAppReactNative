@@ -9,18 +9,18 @@ import PackageStatus from './PackageStatus';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Itemdetails from './ItemDetails'
 const Stack = createStackNavigator();
-import GettingData from './GettingData';
+import OrderPackage from './OrderPackage'
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="PackageStatus">
+      <Stack.Navigator initialRouteName="HomeScreen">
         <Stack.Screen name= "Home" component= {HomeScreen} />
         <Stack.Screen name= "Sign Up" component={SignUp} />
         <Stack.Screen name= "UserScreen" component={UserScreen}/>
         <Stack.Screen name= "PackageStatus" component={PackageStatus}/>
         <Stack.Screen name= "Itemdetails" component={Itemdetails}/>
-        <Stack.Screen name= "GettingData" component={GettingData}/>
+        <Stack.Screen name= "OrderPackage" component={OrderPackage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

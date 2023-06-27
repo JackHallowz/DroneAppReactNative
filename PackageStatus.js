@@ -10,26 +10,41 @@ const ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedataba
 var newworld = 1;
 var underworld = 1;
 
-  firebase.app().database(ref).ref('/Lists').on('value',snapshot =>{ newworld =snapshot.val()});
+  
 
 
 
 
 
 
-const PackageStatus = (sth) => {
+const PackageStatus = ({navigate,route}) => {
 
-  var dataarray = Object.entries(newworld);
-  const datakeys = Object.keys(newworld);
-  var datavalues  = Object.values(newworld);
+  
+
+  
+    const work = route.params;
+    const newz = Object.values(work)
+    
+    console.log(newz)
+    
   const navigation = useNavigation();
   
   
+  const [datanow, setdatanow] = useState([])
+  const [keys, setkeys] = useState([])
+  const [value,setvalue] = useState([])
+
+  useEffect(() => {
+    const reference = firebase.app().database(ref).ref(`${newz}`).on('value', snapshot =>{ const data = snapshot.val(); const newposts = Object.entries(data);setdatanow(newposts); setkeys(Object.keys(data)); setvalue(Object.values(data))})
+    
+  },[])
+  
+  
  
-   function presshandler (name )
+   function presshandler (name,username )
   {
      
-     navigation.navigate('Itemdetails', name)
+     navigation.navigate('Itemdetails', {name, username})
   }
   
   return (
@@ -38,9 +53,9 @@ const PackageStatus = (sth) => {
     <SafeAreaView style={styles.container} >
       
     <FlatList
-    data={datakeys}
+    data={keys}
     renderItem={( {item}) => (
-      <TouchableOpacity  onPress={() =>   presshandler(item)}>
+      <TouchableOpacity  onPress={() =>   presshandler(item,newz)}>
           <Text style={styles.keys}>{item}</Text>
       </TouchableOpacity>
     )}/>

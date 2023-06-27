@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, Button} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,22 +9,34 @@ import { useNavigation } from '@react-navigation/native';
 
 const UserScreen = ({navi}) =>
 {
-    
+    var actualname=[];
+    const [username, getUsername] = useState([]);
     const user = auth().currentUser;
+    let index = user.email.indexOf("@");
+    useEffect(() => {
+        actualname = user.email.substring(0,index);
+        console.log(actualname)
+        getUsername ( actualname);
+    },[])
+    
+    
+    
+    // getUsername (user.email.substring(0,index))
     const navigation = useNavigation();
         return (
             
         <SafeAreaView style={styles.Title}>
             <View style={styles.Title}>
             <Text>
-                UserName: {user.email } {"\n"} 
+                UserName: {username } {"\n"} 
                 ID: {user.uid} {"\n"}
             </Text> 
             </View>
             <View style={styles.Middle}>
-                <Button styles={styles.ButtonStyle} title='Order Status' onPress={()=>navigation.navigate('PackageStatus')}/>
+                <Button styles={styles.ButtonStyle} title='Package Status' onPress={()=> navigation.navigate('PackageStatus', {username})}/>
                 <Button styles={styles.ButtonStyle} title='Account Setting' />
-                <Button styles={styles.ButtonStyle} color='black' title='Log Out' onPress={()=> auth().signOut}/>
+                <Button styles={styles.ButtonStyle} color='black' title='Log Out' onPress={()=> navigation.goBack() }/>
+                <Button style={styles.ButtonStyle} title='Order Package' onPress={()=> navigation.navigate('OrderPackage')}/>
             </View>
             <View style={styles.Bottom}>
             </View>
@@ -47,14 +59,14 @@ const styles = StyleSheet.create(
             flex:2,
             flexDirection:"row",
             marginTop:250,
-            justifyContent:"space-around"
+            justifyContent:"flex-start"
             
         },
         ButtonStyle:
         {
             borderWidth:2,
-
-
+            flexDirection:"column",
+            alignSelf:'center'
         },
         Bottom:
         {
