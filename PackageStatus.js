@@ -1,68 +1,63 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState, }  from 'react'
 import { useNavigation } from '@react-navigation/native';
-
+import auth from '@react-native-firebase/auth';
 import {firebase} from '@react-native-firebase/database';
-import {FlatList, StyleSheet, View,Text,StatusBar,SectionList,VirtualizedList} from 'react-native';
+import {FlatList, StyleSheet, View,Text,StatusBar,SectionList,VirtualizedList,Pressable} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
+import { TouchableOpacity } from 'react-native';
+const ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app';
+var newworld = 1;
+var underworld = 1;
 
-const reference = firebase.app().database('https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app').ref('/Lists').on('value',snapshot=> {console.log('user data:', snapshot.val())});
+  firebase.app().database(ref).ref('/Lists').on('value',snapshot =>{ newworld =snapshot.val()});
 
-const Item = ({title}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item', 
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
-const data =
-[
-  {"books": {"ID": "gadafa3213", "Position": "HCM"}}
-];
-const DATA_1 = [
+
+
+
+
+
+const PackageStatus = (sth) => {
+
+  var dataarray = Object.entries(newworld);
+  const datakeys = Object.keys(newworld);
+  var datavalues  = Object.values(newworld);
+  const navigation = useNavigation();
   
+  
+ 
+   function presshandler (name )
   {
-    title: 'Main dishes',
-    data: ['Pizza', 'Burger', 'Risotto'],
-  },
-  {
-    title: 'Sides',
-    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-  },
-  {
-    title: 'Drinks',
-    data: ['Water', 'Coke', 'Beer'],
-  },
-  {
-    title: 'Desserts',
-    data: ['Cheese Cake', 'Ice Cream'],
-  },
-];
-const PackageStatus = () => {
-
-  // useEffect(()=>{
-  //   console.log(DATA);  
-  // },[])  
+     
+     navigation.navigate('Itemdetails', name)
+  }
   
   return (
     
-    <SafeAreaView style={styles.container}>
-        
-        <Text style={{color:'black',justifyContent:'center'}}>
-          
-          {data.pop()}
-        </Text>
+    
+    <SafeAreaView style={styles.container} >
+      
+    <FlatList
+    data={datakeys}
+    renderItem={( {item}) => (
+      <TouchableOpacity  onPress={() =>   presshandler(item)}>
+          <Text style={styles.keys}>{item}</Text>
+      </TouchableOpacity>
+    )}/>
+      {/* <SectionList
+      keyExtractor={(item) => item }
+      sections={datavalues}
+      renderItem={({item}) => (
+        <View >
+           <Text >
+            {item}
+           </Text>
+        </View>
+      )}
+      /> */}
+
+     
+    
       </SafeAreaView>
 
   );
@@ -71,12 +66,13 @@ const PackageStatus = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems:'center'
+    
   },
-  item: {
+  keys: {
     backgroundColor: '#f9c2ff',
     padding: 20,
     marginVertical: 8,
+    marginHorizontal: 16,
   },
   title: {
     fontSize: 32,

@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-const UserScreen = () =>
+const UserScreen = ({navi}) =>
 {
     
     const user = auth().currentUser;
