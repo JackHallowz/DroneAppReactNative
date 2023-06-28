@@ -1,4 +1,4 @@
-import { View, Text , SafeAreaView, Image, StyleSheet, Button, ImageBackground} from "react-native";
+import { View, Text , SafeAreaView, Image, StyleSheet, Button, ImageBackground,TouchableWithoutFeedback,Keyboard} from "react-native";
 import React, { useEffect, useState,useCallback}   from "react";
 import { TextInput } from "react-native-gesture-handler";
 import auth from '@react-native-firebase/auth';
@@ -39,12 +39,12 @@ const HomeScreen = ({}) =>
         .catch(error => alert(error))
     }
     return(
-        
+        <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss() }}>
         <ImageBackground source={{uri:'https://c4.wallpaperflare.com/wallpaper/536/671/770/genshin-impact-paimon-genshin-impact-video-game-characters-video-game-art-video-game-girls-hd-wallpaper-preview.jpg'}} resizeMode="cover" style={{width:'100%',height:'100%', justifyContent:'center'} }  >
             
             <View style={styles.container}>
                 <Text style={styles.TextUserName}  > Email </Text>
-                <TextInput style={styles.inputContainer} Username={Username} onChangeText={setUsername }> </TextInput>
+                <TextInput style={styles.inputContainer }  Username={Username}  onChangeText={setUsername }> </TextInput>
                 <Text style={styles.TextUserName}> Password </Text>
                 <TextInput style={styles.inputContainer} Password ={Password} onChangeText={setPassword}  > </TextInput>
             
@@ -59,7 +59,7 @@ const HomeScreen = ({}) =>
                     
 
         </ImageBackground>
-
+        </TouchableWithoutFeedback>
        
     );
 };

@@ -1,18 +1,27 @@
 import React, { useState } from 'react'
-import {View, Text, Image, StyleSheet, Button,SafeAreaView} from 'react-native';
+import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedback,Keyboard} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import uuid from 'react-uuid';
+import database from '@react-native-firebase/database';
 
 export default function OrderPackage() {
     const [Type, setType] = useState('');
     const [ID, setID] =  useState('');
-    const [Position, setPosition] =  useState('');
+    const [exPosition, setexPosition] =  useState('');
+    const [dePosition, setdePosition] =  useState('');
+    const uniqueID = uuid();
  return(
-  <SafeAreaView style={styles.Title}>
-    <Text style={styles.Text}> Item Type </Text>
-    <TextInput style={styles.Textinput} >
-    <Text style={styles.Text}> Item Type </Text>
-    </TextInput>
-  </SafeAreaView>
+    <TouchableWithoutFeedback onPress={()=> { Keyboard.dismiss()}}> 
+        <SafeAreaView style={styles.Title}>
+            <Text style={styles.Text}> Item Name </Text>
+            <TextInput style={styles.Textinput} placeholder='e.g VinLand Saga Manga,etc...' ></TextInput>
+            <Text style={styles.Text}> Extract Position </Text>
+            <TextInput style={styles.Textinput} placeholder='e.g HCMCity, Hanai,etc...' ></TextInput>
+            <Text style={styles.Text}> Deposite Position </Text>
+            <TextInput style={styles.Textinput} placeholder='e.g HCMCity, Hanai,etc...' ></TextInput>
+            <Text style={styles.Text}> {uniqueID} </Text>
+        </SafeAreaView>
+    </TouchableWithoutFeedback>
  )
 }
 
