@@ -1,57 +1,72 @@
 import React, {useState,SetStateAction} from 'react';
-import {View, Text, Image, StyleSheet, Button,} from 'react-native'
+import {View, Text, Image, StyleSheet, Button, Easing, Alert,TouchableWithoutFeedback,Keyboard} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { TextInput } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { Zocial } from '@expo/vector-icons';
 import auth from '@react-native-firebase/auth';
-
+import database, { firebase } from '@react-native-firebase/database';
+import { SafeAreaView } from 'react-native-safe-area-context';
 function SignUp () 
 {   
     const [Email, setEmail] = useState('');
     const [Name, setName] = useState('');
     const [Password, setPassword] = useState('');
     const [Phone, setPhone] = useState('');
+    const actualname = Email.substring(0,Email.indexOf("@"));
 
-    const  signinchange = () =>
+    function  signinchange  ()
     {
-        
-        auth().createUserWithEmailAndPassword(Email,Password)
-        .then(()=>{console.log("User `${Email}` has been created");})
-        .catch(error => {
-            if(error.code == 'auth/email-already-in-use'){
-                console.log('that email is already used! Please change your UserName');
-            }
-            if(error.code == 'auth/invalid-email'){
-                console.log('Email Adress is invalid');
-            }
-            console.error(error);
+        if(Email == '' || Password == '')
+        {
+            Alert.alert('Warning',"Username or Passing can't be empty string",[{text: 'understood',onPress:() => ('alert closed')}]);
+            TextInputclear();
         }
-        )   
+        else if(Password.length>10)
+        {
+            Alert.alert('Warning',"Password can't be longer than 10 characters",[{text: 'understood',onPress:() => ('alert closed') } ]);
+            TextInputclear();
+        }
+        else
+        {
+            auth().createUserWithEmailAndPassword(Email,Password)
+            .then(()=>{console.log("User " + {Email} + " has been created");
+            database().ref('/User/').update({ [actualname] : '' });})
+            .catch(error => {
+                if(error.code == 'auth/email-already-in-use'){
+                    console.log('that email is already used! Please change your UserName');
+                }
+                if(error.code == 'auth/invalid-email'){
+                    console.log('Email Adress is invalid');
+                }
+                console.error(error);
+            }
+            )            
+
+        }
+
+    
         
     }
+    function TextInputclear()
+    {
+        setEmail('');
+        setPassword('');
+    }
     return(
-        <View style={styles.Screen }>
+        <TouchableWithoutFeedback style={styles.Screen } onPress={()=> {Keyboard.dismiss()}}>
             <Image source={{uri:'https://static.vecteezy.com/system/resources/previews/002/405/021/original/baby-cats-icon-illustration-vector.jpg'}} resizeMode= 'contain' style={styles.Logo}/>
-            {/* <Text style={styles.TextUserName}> Full Name </Text>
-            <TextInput style={styles.inputContainer } placeholder='Required' onChangeText={(val)=>setName(val)}></TextInput>
-            <Text style={styles.TextUserName}> Phone Number </Text>
-            <TextInput style={styles.inputContainer } placeholder='Optional' >
-                <AntDesign name="phone" size={18} color="black" />
-            </TextInput> */}
             <Text style={styles.TextUserName}> Email* </Text>
-            
-            <TextInput   style={styles.inputContainer} placeholder='Required' onChangeText={(val)=>setEmail(val)}  >
-               
+            <TextInput   style={styles.inputContainer} placeholder='Required' value={Email} onChangeText={(value)=>setEmail(value)}  >
             </TextInput>
             <Text style={styles.TextUserName}> Password* </Text>
-            <TextInput style={styles.inputContainer} placeholder='less than 20 words' secureTextEntry  onChangeText={(val)=>setPassword(val)}  >
+            <TextInput style={styles.inputContainer} placeholder='less than 10 characters' secureTextEntry value={Password} onChangeText={(value)=>setPassword(value)}  >
             </TextInput>
-            <View style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
-                <Button title="Create New Account" onPress={signinchange}/>
-            </View>
-        </View>
+            <SafeAreaView style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
+            <Button title="Create New Account" onPress={()=>signinchange() }/>
+            </SafeAreaView>
+        </TouchableWithoutFeedback>
     );
         
 }

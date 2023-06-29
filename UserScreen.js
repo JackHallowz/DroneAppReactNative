@@ -36,7 +36,7 @@ const UserScreen = ({navi}) =>
                 <Button styles={styles.ButtonStyle} title='Package Status' onPress={()=> navigation.navigate('PackageStatus', {username})}/>
                 <Button styles={styles.ButtonStyle} title='Account Setting' />
                 <Button styles={styles.ButtonStyle} color='black' title='Log Out' onPress={()=> navigation.goBack() }/>
-                <Button style={styles.ButtonStyle} title='Order Package' onPress={()=> navigation.navigate('OrderPackage')}/>
+                <Button style={styles.ButtonStyle} title='Order Package' onPress={()=> navigation.navigate('OrderPackage', {username})}/>
             </View>
             <View style={styles.Bottom}>
             </View>

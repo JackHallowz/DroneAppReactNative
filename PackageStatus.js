@@ -18,63 +18,40 @@ var underworld = 1;
 
 
 const PackageStatus = ({navigate,route}) => {
-
-  
-
-  
-    const work = route.params;
-    const newz = Object.values(work)
-    
-    console.log(newz)
-    
+  const work = route.params;
+  if(work!=null){const newz = Object.values(work);}
   const navigation = useNavigation();
-  
   
   const [datanow, setdatanow] = useState([])
   const [keys, setkeys] = useState([])
   const [value,setvalue] = useState([])
 
   useEffect(() => {
-    const reference = firebase.app().database(ref).ref(`${newz}`).on('value', snapshot =>{ const data = snapshot.val(); const newposts = Object.entries(data);setdatanow(newposts); setkeys(Object.keys(data)); setvalue(Object.values(data))})
+    if(work!=null)
+    {
+      const reference = firebase.app().database(ref).ref(`${newz}`).on('value', snapshot =>{ const data = snapshot.val(); const newposts = Object.entries(data);console.log(data);setdatanow(newposts); setkeys(Object.keys(data)); setvalue(Object.values(data))})
+      
+    }
     
+    return () => firebase.app().database(ref).ref(`${newz}`).off('value',reference);
   },[])
-  
-  
- 
+
    function presshandler (name,username )
   {
      
      navigation.navigate('Itemdetails', {name, username})
   }
   
-  return (
-    
-    
+  return (   
     <SafeAreaView style={styles.container} >
-      
     <FlatList
     data={keys}
     renderItem={( {item}) => (
       <TouchableOpacity  onPress={() =>   presshandler(item,newz)}>
           <Text style={styles.keys}>{item}</Text>
       </TouchableOpacity>
-    )}/>
-      {/* <SectionList
-      keyExtractor={(item) => item }
-      sections={datavalues}
-      renderItem={({item}) => (
-        <View >
-           <Text >
-            {item}
-           </Text>
-        </View>
-      )}
-      /> */}
-
-     
-    
+    )}/>   
       </SafeAreaView>
-
   );
 }
 

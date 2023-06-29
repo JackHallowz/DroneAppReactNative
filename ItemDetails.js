@@ -12,14 +12,7 @@ var receive;
 
 const ItemDetails = ({route,navigation}) => {
   var name = route.params
-  
-
-    const zz = Object.values(name)
-    
-    console.log(zz[0])
-    
-  
-  
+  const zz = Object.values(name) 
   //console.log(differ) 
   const [datanow, setdatanow] = useState([])
   const [keys, setkeys] = useState([])
@@ -27,6 +20,7 @@ const ItemDetails = ({route,navigation}) => {
   useEffect(() => {
     const reference = firebase.app().database(ref).ref(`${zz[1]}` ).child(`${zz[0]}`).on('value', snapshot =>{ const data = snapshot.val(); const newposts = Object.entries(data);setdatanow(newposts); setkeys(Object.keys(data)); setvalue(Object.values(data))})
     
+    return () => firebase.app().database(ref).ref(`${zz[1]}` ).child(`${zz[0]}`).off('value',reference);
   },[])
 
  

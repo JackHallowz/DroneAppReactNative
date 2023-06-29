@@ -4,7 +4,8 @@ import { TextInput } from "react-native-gesture-handler";
 import auth from '@react-native-firebase/auth';
 import UserScreen from "./UserScreen";
 import { useNavigation } from '@react-navigation/native';
-
+import GlobalStyles from "./GlobalStyles";
+import { firebase } from "@react-native-firebase/database";
 
 const HomeScreen = ({}) =>
 {
@@ -16,15 +17,17 @@ const HomeScreen = ({}) =>
     const navigation = useNavigation();
     const clearinput = useCallback(()=> {setUsername('')},[] );
     
-
+    
     function onAuthStateChanged(User) {
         setUser(User);
         if(initializing) setInitializing(false);
+     
+        
     }
 
     useEffect(()=>{
         const subcriber = auth().onAuthStateChanged(onAuthStateChanged);
-        clearinput;
+        
         return subcriber;
     },[])
     if(initializing) return null;   
@@ -49,10 +52,10 @@ const HomeScreen = ({}) =>
                 <TextInput style={styles.inputContainer} Password ={Password} onChangeText={setPassword}  > </TextInput>
             
             <View style={{marginVertical:10}}>
-                <Button style={styles.Button} title="Log In"  onPress={loginchange}/>  
+                <Button style={GlobalStyles.ButtonStyle} title="Log In"  onPress={loginchange}/>  
             </View>
             <View style={{marginVertical:10}}>
-                <Button style={styles.Button} title="Sign Up" onPress={()=> navigation.navigate('Sign Up')} /> 
+                <Button style={GlobalStyles.ButtonStyle} title="Sign Up" onPress={()=> navigation.navigate('Sign Up')} /> 
             </View>
             <Button style={styles.Button} title="Clear" onPress={clearinput} />
             </View>
@@ -97,8 +100,7 @@ const styles = StyleSheet.create(
         Button:
         {
             
-            padding: 10,
-            borderRadius: 5,
+
         },
         Title:
         {
