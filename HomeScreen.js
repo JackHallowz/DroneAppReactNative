@@ -6,6 +6,7 @@ import UserScreen from "./UserScreen";
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from "./GlobalStyles";
 import { firebase } from "@react-native-firebase/database";
+import { G } from "react-native-svg";
 
 const HomeScreen = ({}) =>
 {
@@ -15,7 +16,11 @@ const HomeScreen = ({}) =>
     const [User, setUser] = useState();
     const [initializing, setInitializing] = useState(true);
     const navigation = useNavigation();
-    const clearinput = useCallback(()=> {setUsername('')},[] );
+    function clearinput ()
+    {
+        setUsername('');
+       
+    }
     
     
     function onAuthStateChanged(User) {
@@ -42,26 +47,24 @@ const HomeScreen = ({}) =>
         .catch(error => alert(error))
     }
     return(
-        <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss() }}>
-        <ImageBackground source={{uri:'https://c4.wallpaperflare.com/wallpaper/536/671/770/genshin-impact-paimon-genshin-impact-video-game-characters-video-game-art-video-game-girls-hd-wallpaper-preview.jpg'}} resizeMode="cover" style={{width:'100%',height:'100%', justifyContent:'center'} }  >
-            
-            <View style={styles.container}>
-                <Text style={styles.TextUserName}  > Email </Text>
-                <TextInput style={styles.inputContainer }  Username={Username}  onChangeText={setUsername }> </TextInput>
-                <Text style={styles.TextUserName}> Password </Text>
-                <TextInput style={styles.inputContainer} Password ={Password} onChangeText={setPassword}  > </TextInput>
-            
+        <TouchableWithoutFeedback  onPress={() => {Keyboard.dismiss() }} >
+            <ImageBackground source={{uri:'https://w0.peakpx.com/wallpaper/1007/301/HD-wallpaper-final-fantasy-xvi-claive-ff16-ffxvi-square-enix.jpg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }  >   
+            <View >
+                <Text style={GlobalStyles.Text}  > Email </Text>
+                <TextInput style={GlobalStyles.InputStyle }   onChangeText={(val)=> setUsername(val)}> </TextInput>
+                <Text style={GlobalStyles.Text}> Password </Text>
+                <TextInput style={GlobalStyles.InputStyle}  onChangeText={(val)=> setPassword(val)} > </TextInput>
             <View style={{marginVertical:10}}>
                 <Button style={GlobalStyles.ButtonStyle} title="Log In"  onPress={loginchange}/>  
             </View>
             <View style={{marginVertical:10}}>
                 <Button style={GlobalStyles.ButtonStyle} title="Sign Up" onPress={()=> navigation.navigate('Sign Up')} /> 
             </View>
-            <Button style={styles.Button} title="Clear" onPress={clearinput} />
+            <View style={{marginVertical:10}}>
+                <Button style={GlobalStyles.ButtonStyle} title="Clear" onPress={clearinput} />
             </View>
-                    
-
-        </ImageBackground>
+            </View>
+            </ImageBackground>
         </TouchableWithoutFeedback>
        
     );
@@ -71,48 +74,3 @@ const HomeScreen = ({}) =>
 
 export default HomeScreen;
 
-const styles = StyleSheet.create(
-    {
-        inputContainer:
-        {   
-            margin:3,
-            borderColor:'white',
-            borderWidth: 3,
-            marginLeft:1,
-            width: 300,
-            color:'white',
-            padding:10,
-            paddingRight:3,
-            
-        },
-        container:
-        {
-            alignSelf:"center",
-        },
-        TextUserName:
-        {
-            color: 'black',
-            fontWeight: 'bold',
-            color:'white',
-            fontSize:15,
-            
-        },
-        Button:
-        {
-            
-
-        },
-        Title:
-        {
-            flex:2,
-            flexDirection:'column',
-            
-            
-        },
-        Spacing:
-        {
-            height: 20,
-            
-        }
-    }
-)

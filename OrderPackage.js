@@ -41,7 +41,6 @@ export default function OrderPackage({route,navigation}) {
             <TextInput style={GlobalStyles.InputStyle} placeholder='e.g HCMCity, Hanai,etc...'  value={dePosition} onChangeText={(value)=> setdePosition(value)} ></TextInput>
             <Button style={GlobalStyles.ButtonStyle} title='Create' onPress={() => UploadOnpress(Type,exPosition,dePosition)}/>
         </SafeAreaView>
-
     </TouchableWithoutFeedback>
  )
 }

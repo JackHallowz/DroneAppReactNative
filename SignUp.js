@@ -1,5 +1,5 @@
 import React, {useState,SetStateAction} from 'react';
-import {View, Text, Image, StyleSheet, Button, Easing, Alert,TouchableWithoutFeedback,Keyboard} from 'react-native'
+import {View, Text, Image, StyleSheet, Button, Easing, Alert,TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { TextInput } from 'react-native-gesture-handler';
@@ -8,6 +8,7 @@ import { Zocial } from '@expo/vector-icons';
 import auth from '@react-native-firebase/auth';
 import database, { firebase } from '@react-native-firebase/database';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import GlobalStyles from './GlobalStyles';
 function SignUp () 
 {   
     const [Email, setEmail] = useState('');
@@ -55,17 +56,20 @@ function SignUp ()
         setPassword('');
     }
     return(
-        <TouchableWithoutFeedback style={styles.Screen } onPress={()=> {Keyboard.dismiss()}}>
-            <Image source={{uri:'https://static.vecteezy.com/system/resources/previews/002/405/021/original/baby-cats-icon-illustration-vector.jpg'}} resizeMode= 'contain' style={styles.Logo}/>
-            <Text style={styles.TextUserName}> Email* </Text>
-            <TextInput   style={styles.inputContainer} placeholder='Required' value={Email} onChangeText={(value)=>setEmail(value)}  >
-            </TextInput>
-            <Text style={styles.TextUserName}> Password* </Text>
-            <TextInput style={styles.inputContainer} placeholder='less than 10 characters' secureTextEntry value={Password} onChangeText={(value)=>setPassword(value)}  >
-            </TextInput>
-            <SafeAreaView style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
-            <Button title="Create New Account" onPress={()=>signinchange() }/>
-            </SafeAreaView>
+        <TouchableWithoutFeedback  onPress={()=> {Keyboard.dismiss()}}>
+            <ImageBackground source={{uri:'https://pbs.twimg.com/media/FmwDVysXoAA4oYA?format=jpg&name=4096x4096'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>        
+                <View style={styles.Screen }>
+                    <Text style={styles.TextUserName}> Email* </Text>
+                    <TextInput   style={styles.inputContainer} placeholder='Required'  value={Email} onChangeText={(value)=>setEmail(value)}  >
+                    </TextInput>
+                    <Text style={styles.TextUserName}> Password* </Text>
+                    <TextInput style={styles.inputContainer} placeholder='less than 10 characters' secureTextEntry value={Password} onChangeText={(value)=>setPassword(value)}  >
+                    </TextInput>
+                    <SafeAreaView style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
+                    <Button title="Create New Account" onPress={()=>signinchange() }/>
+                    </SafeAreaView>
+                </View>
+            </ImageBackground>
         </TouchableWithoutFeedback>
     );
         
@@ -77,8 +81,8 @@ const styles = StyleSheet.create(
         {
             borderWidth:3,
             maxHeight:50,
-            borderWidth: 1,
-            borderColor: '#777',
+            borderWidth: 3,
+            borderColor: 'black',
             padding: 10,
             margin: 1,
             maxWidth:'100%',

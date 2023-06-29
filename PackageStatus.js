@@ -20,7 +20,9 @@ var underworld = 1;
 const PackageStatus = ({navigate,route}) => {
   const work = route.params;
   if(work!=null){const newz = Object.values(work);}
+
   const navigation = useNavigation();
+
   
   const [datanow, setdatanow] = useState([])
   const [keys, setkeys] = useState([])
@@ -33,7 +35,7 @@ const PackageStatus = ({navigate,route}) => {
       
     }
     
-    return () => firebase.app().database(ref).ref(`${newz}`).off('value',reference);
+    
   },[])
 
    function presshandler (name,username )

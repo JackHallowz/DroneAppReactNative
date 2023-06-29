@@ -34,6 +34,14 @@ import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedb
         color:'black',
         fontSize:15,
     },
+    BackImageStyle:
+    {
+        width:'100%',
+        height:'100%',
+        flex:1,
+        justifyContent:"center",
+        alignItems:"center",
+    },
 }) 
  
     
