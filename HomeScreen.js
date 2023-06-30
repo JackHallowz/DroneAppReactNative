@@ -6,7 +6,7 @@ import UserScreen from "./UserScreen";
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from "./GlobalStyles";
 import { firebase } from "@react-native-firebase/database";
-import { G } from "react-native-svg";
+import CheckBox from "@react-native-community/checkbox";
 
 const HomeScreen = ({}) =>
 {
@@ -19,7 +19,7 @@ const HomeScreen = ({}) =>
     function clearinput ()
     {
         setUsername('');
-       
+        setPassword('');
     }
     
     
@@ -32,7 +32,7 @@ const HomeScreen = ({}) =>
 
     useEffect(()=>{
         const subcriber = auth().onAuthStateChanged(onAuthStateChanged);
-        
+        clearinput();
         return subcriber;
     },[])
     if(initializing) return null;   
@@ -51,19 +51,26 @@ const HomeScreen = ({}) =>
             <ImageBackground source={{uri:'https://w0.peakpx.com/wallpaper/1007/301/HD-wallpaper-final-fantasy-xvi-claive-ff16-ffxvi-square-enix.jpg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }  >   
             <View >
                 <Text style={GlobalStyles.Text}  > Email </Text>
-                <TextInput style={GlobalStyles.InputStyle }   onChangeText={(val)=> setUsername(val)}> </TextInput>
+                <TextInput style={GlobalStyles.InputStyle } value={Username}  onChangeText={(val)=> setUsername(val)}> 
+                </TextInput>
                 <Text style={GlobalStyles.Text}> Password </Text>
-                <TextInput style={GlobalStyles.InputStyle}  onChangeText={(val)=> setPassword(val)} > </TextInput>
-            <View style={{marginVertical:10}}>
+                <TextInput style={GlobalStyles.InputStyle}  value={Password} secureTextEntry={hidePass} onChangeText={(val)=> setPassword(val) }  >
+                </TextInput>
+            </View>
+            <View style={GlobalStyles.CheckBoxViewStyle}>
+                <CheckBox disabled={false} value={hidePass} testID="Show Password" onValueChange={(newvalue) => setHidePass(newvalue) }/>
+                <Text style={{fontSize:15,margin:6}}> Show Password   </Text>
+            </View>
+            <View style={GlobalStyles.ViewButton}>
                 <Button style={GlobalStyles.ButtonStyle} title="Log In"  onPress={loginchange}/>  
             </View>
-            <View style={{marginVertical:10}}>
+            <View style={GlobalStyles.ViewButton}>
                 <Button style={GlobalStyles.ButtonStyle} title="Sign Up" onPress={()=> navigation.navigate('Sign Up')} /> 
             </View>
-            <View style={{marginVertical:10}}>
+            <View style={GlobalStyles.ViewButton}>
                 <Button style={GlobalStyles.ButtonStyle} title="Clear" onPress={clearinput} />
             </View>
-            </View>
+            
             </ImageBackground>
         </TouchableWithoutFeedback>
        

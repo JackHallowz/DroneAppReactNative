@@ -1,5 +1,5 @@
 import React, {useState,SetStateAction} from 'react';
-import {View, Text, Image, StyleSheet, Button, Easing, Alert,TouchableWithoutFeedback,Keyboard,ImageBackground} from 'react-native'
+import {View, Text, Image, StyleSheet, Button, Easing, Alert,TouchableWithoutFeedback,Keyboard,ImageBackground, Pressable} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { TextInput } from 'react-native-gesture-handler';
@@ -9,6 +9,8 @@ import auth from '@react-native-firebase/auth';
 import database, { firebase } from '@react-native-firebase/database';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GlobalStyles from './GlobalStyles';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 function SignUp () 
 {   
     const [Email, setEmail] = useState('');
@@ -16,18 +18,19 @@ function SignUp ()
     const [Password, setPassword] = useState('');
     const [Phone, setPhone] = useState('');
     const actualname = Email.substring(0,Email.indexOf("@"));
-
+    const [rightIcon, setrightIcon] = useState('eye');
+    const [hidePass, sethidePass] = useState(true);
     function  signinchange  ()
     {
         if(Email == '' || Password == '')
         {
-            Alert.alert('Warning',"Username or Passing can't be empty string",[{text: 'understood',onPress:() => ('alert closed')}]);
-            TextInputclear();
+            Alert.alert('Warning',"Username or Passing can't be empty string",[{text: 'understood',onPress:() => TextInputclear()}], );
+            
         }
         else if(Password.length>10)
         {
-            Alert.alert('Warning',"Password can't be longer than 10 characters",[{text: 'understood',onPress:() => ('alert closed') } ]);
-            TextInputclear();
+            Alert.alert('Warning',"Password can't be longer than 10 characters",[{text: 'understood',onPress:() => TextInputclear() }, ]);
+            
         }
         else
         {
@@ -49,12 +52,24 @@ function SignUp ()
 
     
         
-    }
+    };
+    const handlePasswordVisibility = () => {
+        if(rightIcon === 'eye')
+        {
+            setrightIcon('eye-off');
+            sethidePass(!hidePass);
+        }
+        else if (rightIcon === 'eye-off')
+        {
+            setrightIcon('eye');
+            sethidePass(!hidePass);
+        }
+    }; 
     function TextInputclear()
     {
         setEmail('');
         setPassword('');
-    }
+    };
     return(
         <TouchableWithoutFeedback  onPress={()=> {Keyboard.dismiss()}}>
             <ImageBackground source={{uri:'https://pbs.twimg.com/media/FmwDVysXoAA4oYA?format=jpg&name=4096x4096'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>        
@@ -63,10 +78,16 @@ function SignUp ()
                     <TextInput   style={styles.inputContainer} placeholder='Required'  value={Email} onChangeText={(value)=>setEmail(value)}  >
                     </TextInput>
                     <Text style={styles.TextUserName}> Password* </Text>
-                    <TextInput style={styles.inputContainer} placeholder='less than 10 characters' secureTextEntry value={Password} onChangeText={(value)=>setPassword(value)}  >
-                    </TextInput>
+                    <View  style={{flexDirection:'row',alignItems:'center'}}>
+                        <TextInput style={styles.inputContainer}  placeholder='less than 10 characters' secureTextEntry={hidePass} value={Password}  onChangeText={(value)=>setPassword(value)}/>
+                        <Pressable  onPress={handlePasswordVisibility}>
+                            <MaterialCommunityIcons name={rightIcon} size={20} color={"white"}/>
+                        </Pressable>
+                        
+                    </View>
+          
                     <SafeAreaView style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
-                    <Button title="Create New Account" onPress={()=>signinchange() }/>
+                        <Button title="Create New Account" onPress={()=>signinchange()}/>
                     </SafeAreaView>
                 </View>
             </ImageBackground>
@@ -80,16 +101,13 @@ const styles = StyleSheet.create(
         inputContainer:
         {
             borderWidth:3,
-            maxHeight:50,
-            borderWidth: 3,
             borderColor: 'black',
             padding: 10,
-            margin: 1,
-            maxWidth:'100%',
+            maxWidth:'90%',
             width: 300,
             alignSelf: 'center',
             color:'black',
-            
+            flexDirection:'row'
         },
         TextUserName:
         {

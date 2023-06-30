@@ -6,19 +6,19 @@ import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedb
     ButtonStyle:
     {
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 8,
         margin:5,
+        
     },
     InputStyle:
     {
         margin:3,
         borderColor:'black',
         borderWidth: 3,
-        marginLeft:1,
         width: 300,
         color:'black',
         padding:10,
-        paddingRight:3,
+       
         
     },
     TitleStyle:
@@ -33,6 +33,7 @@ import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedb
         fontWeight: 'bold',
         color:'black',
         fontSize:15,
+        
     },
     BackImageStyle:
     {
@@ -40,8 +41,23 @@ import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedb
         height:'100%',
         flex:1,
         justifyContent:"center",
-        alignItems:"center",
+        alignItems:'center'
     },
+    ViewButton:
+    {
+        marginVertical:10,
+        width:300,
+    },
+    CheckBoxViewStyle:
+    {   
+        alignSelf:'flex-start',
+        flexDirection:'row',
+        
+    },
+    CheckBoxStyle:
+    {
+
+    }
 }) 
  
     

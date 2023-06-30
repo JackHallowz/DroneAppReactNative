@@ -1,14 +1,14 @@
 import React, { useEffect,useState, }  from 'react'
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import {firebase} from '@react-native-firebase/database';
-import {FlatList, StyleSheet, View,Text,StatusBar,SectionList,VirtualizedList,Pressable} from 'react-native';
+import database, {firebase} from '@react-native-firebase/database';
+import {FlatList, StyleSheet, View,Text,StatusBar,SectionList,VirtualizedList,Pressable,onPress,Modal, Alert} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 import { TouchableOpacity } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 const ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app';
-var newworld = 1;
-var underworld = 1;
+
 
   
 
@@ -19,23 +19,44 @@ var underworld = 1;
 
 const PackageStatus = ({navigate,route}) => {
   const work = route.params;
-  if(work!=null){const newz = Object.values(work);}
-
+  const newz = Object.values(work);
+  const newzz = '/User/'+newz
   const navigation = useNavigation();
 
-  
-  const [datanow, setdatanow] = useState([])
-  const [keys, setkeys] = useState([])
-  const [value,setvalue] = useState([])
+  const [modalOpen, setModalOpen] = useState(false);
+  const [datanow, setdatanow] = useState([]);
+  const [keys, setkeys] = useState([]);
+  const [value,setvalue] = useState([]);
+  const [Confirm, setConfirm] = useState('');
 
-  useEffect(() => {
-    if(work!=null)
-    {
-      const reference = firebase.app().database(ref).ref(`${newz}`).on('value', snapshot =>{ const data = snapshot.val(); const newposts = Object.entries(data);console.log(data);setdatanow(newposts); setkeys(Object.keys(data)); setvalue(Object.values(data))})
+  function removal (name)
+  {
+    
+    const newzzz = newzz + `/${name}/`
+    console.log(newzzz)
+    Alert.alert('Removal Warning','Do you really want to remove this product?',[
+      {
+        text: "Confirm",
+        onPress: ()=> {database().ref(newzzz).remove(); console.log("Removed")}
+        
+      },
+      {
+        text: "Cancel",
+        onPress: ()=> console.log("Cancelled")
+        
+      },
       
-    }
+    ],
+    {
+      cancelable:true,
+    })
     
+  }
+  useEffect(() => {
+ 
     
+      const reference = firebase.app().database(ref).ref(`${newzz}`).on('value', snapshot =>{ const data = snapshot.val(); if(data!=null) {const newposts = Object.entries(data);console.log(data);setdatanow(newposts); setkeys(Object.keys(data)); setvalue(Object.values(data))}});
+    return  () => firebase.app().database(ref).ref(`${newzz}`).off('value',reference);
   },[])
 
    function presshandler (name,username )
@@ -49,7 +70,7 @@ const PackageStatus = ({navigate,route}) => {
     <FlatList
     data={keys}
     renderItem={( {item}) => (
-      <TouchableOpacity  onPress={() =>   presshandler(item,newz)}>
+      <TouchableOpacity  onPress={() =>   presshandler(item,newz)} onLongPress={()=> removal(item) }>
           <Text style={styles.keys}>{item}</Text>
       </TouchableOpacity>
     )}/>   
