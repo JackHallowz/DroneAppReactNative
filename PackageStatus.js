@@ -2,13 +2,13 @@ import React, { useEffect,useState, }  from 'react'
 import { useNavigation } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import database, {firebase} from '@react-native-firebase/database';
-import {FlatList, StyleSheet, View,Text,StatusBar,SectionList,VirtualizedList,Pressable,onPress,Modal, Alert} from 'react-native';
+import {FlatList, StyleSheet, View,Text,StatusBar,SectionList,VirtualizedList,Pressable,onPress,Modal, Alert, ImageBackground} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { isEnabled } from 'react-native/Libraries/Performance/Systrace';
 import { TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 const ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app';
-
+import GlobalStyles from './GlobalStyles';
 
   
 
@@ -62,19 +62,21 @@ const PackageStatus = ({navigate,route}) => {
    function presshandler (name,username )
   {
      
-     navigation.navigate('Itemdetails', {name, username})
+     navigation.navigate('Item details', {name, username})
   }
   
-  return (   
-    <SafeAreaView style={styles.container} >
-    <FlatList
-    data={keys}
-    renderItem={( {item}) => (
-      <TouchableOpacity  onPress={() =>   presshandler(item,newz)} onLongPress={()=> removal(item) }>
-          <Text style={styles.keys}>{item}</Text>
-      </TouchableOpacity>
-    )}/>   
-      </SafeAreaView>
+  return ( 
+    <ImageBackground source={{uri:'https://e1.pxfuel.com/desktop-wallpaper/831/789/desktop-wallpaper-324-final-fantasy-xv-iphone-final-fantasy.jpg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
+      <SafeAreaView style={GlobalStyles.TitleStyle}>
+      <FlatList
+      data={keys}
+      renderItem={( {item}) => (
+        <TouchableOpacity  onPress={() =>   presshandler(item,newz)} onLongPress={()=> removal(item) }>
+            <Text style={styles.keys}>{item}</Text>
+        </TouchableOpacity>
+      )}/>   
+        </SafeAreaView>
+      </ImageBackground>  
   );
 }
 
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    justifyContent:'center'
   },
   title: {
     fontSize: 32,

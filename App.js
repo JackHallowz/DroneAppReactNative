@@ -17,10 +17,10 @@ function App() {
       <Stack.Navigator initialRouteName="HomeScreen">
         <Stack.Screen name= "Home" component= {HomeScreen} />
         <Stack.Screen name= "Sign Up" component={SignUp} />
-        <Stack.Screen name= "UserScreen" component={UserScreen}/>
-        <Stack.Screen name= "PackageStatus" component={PackageStatus}/>
-        <Stack.Screen name= "Itemdetails" component={Itemdetails}/>
-        <Stack.Screen name= "OrderPackage" component={OrderPackage}/>
+        <Stack.Screen name= "User Screen" component={UserScreen}/>
+        <Stack.Screen name= "Package Status" component={PackageStatus}/>
+        <Stack.Screen name= "Item details" component={Itemdetails}/>
+        <Stack.Screen name= "Order Package" component={OrderPackage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

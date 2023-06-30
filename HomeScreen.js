@@ -12,7 +12,7 @@ const HomeScreen = ({}) =>
 {
     const [Username, setUsername] = useState('');
     const [Password, setPassword] = useState('');
-    const [hidePass, setHidePass] = useState(true);
+    const [hidePass, setHidePass] = useState(false);
     const [User, setUser] = useState();
     const [initializing, setInitializing] = useState(true);
     const navigation = useNavigation();
@@ -42,7 +42,7 @@ const HomeScreen = ({}) =>
         .then( userCredentials => {
             const user = userCredentials.user;
             console.log('Logged under',user.email)
-            navigation.navigate("UserScreen");
+            navigation.navigate("User Screen");
         }) 
         .catch(error => alert(error))
     }
@@ -54,7 +54,7 @@ const HomeScreen = ({}) =>
                 <TextInput style={GlobalStyles.InputStyle } value={Username}  onChangeText={(val)=> setUsername(val)}> 
                 </TextInput>
                 <Text style={GlobalStyles.Text}> Password </Text>
-                <TextInput style={GlobalStyles.InputStyle}  value={Password} secureTextEntry={hidePass} onChangeText={(val)=> setPassword(val) }  >
+                <TextInput style={GlobalStyles.InputStyle}  value={Password} secureTextEntry={!hidePass} onChangeText={(val)=> setPassword(val) }  >
                 </TextInput>
             </View>
             <View style={GlobalStyles.CheckBoxViewStyle}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedback,Keyboard} from 'react-native';
+import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedback,Keyboard, ImageBackground} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import uuid from 'react-uuid';
 import database, { firebase } from '@react-native-firebase/database';
@@ -31,17 +31,19 @@ export default function OrderPackage({route,navigation}) {
     const [dePosition, setdePosition] =  useState('');
     
  return(
-    <TouchableWithoutFeedback onPress={()=> { Keyboard.dismiss()}}> 
-        <SafeAreaView style={GlobalStyles.TitleStyle}>
-            <Text style={GlobalStyles.Text}> Item Name </Text>
-            <TextInput  style={GlobalStyles.InputStyle} placeholder='e.g VinLand Saga Manga,etc...' value={Type} onChangeText={(value)=> setType(value)}></TextInput>
-            <Text style={GlobalStyles.Text}> Extract Position </Text>
-            <TextInput style={GlobalStyles.InputStyle} placeholder='e.g HCMCity, Hanai,etc...' value={exPosition} onChangeText={(value)=> setexPosition(value)} ></TextInput>
-            <Text style={GlobalStyles.Text}> Deposite Position </Text>
-            <TextInput style={GlobalStyles.InputStyle} placeholder='e.g HCMCity, Hanai,etc...'  value={dePosition} onChangeText={(value)=> setdePosition(value)} ></TextInput>
-            <Button style={GlobalStyles.ButtonStyle} title='Create' onPress={() => UploadOnpress(Type,exPosition,dePosition)}/>
-        </SafeAreaView>
-    </TouchableWithoutFeedback>
+    <ImageBackground source={{uri:'https://w.forfun.com/fetch/3a/3a697f0922ca469b8ea1e05e40d02f43.jpeg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
+        <TouchableWithoutFeedback onPress={()=> { Keyboard.dismiss()}}> 
+            <SafeAreaView style={GlobalStyles.TitleStyle}>
+                <Text style={GlobalStyles.Text}> Item Name </Text>
+                <TextInput  style={GlobalStyles.InputStyle} placeholder='e.g VinLand Saga Manga,etc...' value={Type} onChangeText={(value)=> setType(value)}></TextInput>
+                <Text style={GlobalStyles.Text}> Extract Position </Text>
+                <TextInput style={GlobalStyles.InputStyle} placeholder='e.g HCMCity, Hanai,etc...' value={exPosition} onChangeText={(value)=> setexPosition(value)} ></TextInput>
+                <Text style={GlobalStyles.Text}> Deposite Position </Text>
+                <TextInput style={GlobalStyles.InputStyle} placeholder='e.g HCMCity, Hanai,etc...'  value={dePosition} onChangeText={(value)=> setdePosition(value)} ></TextInput>
+                <Button style={GlobalStyles.ButtonStyle} title='Create' onPress={() => UploadOnpress(Type,exPosition,dePosition)}/>
+            </SafeAreaView>
+        </TouchableWithoutFeedback>
+    </ImageBackground>
  )
 }
 

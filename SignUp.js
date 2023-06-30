@@ -73,21 +73,18 @@ function SignUp ()
     return(
         <TouchableWithoutFeedback  onPress={()=> {Keyboard.dismiss()}}>
             <ImageBackground source={{uri:'https://pbs.twimg.com/media/FmwDVysXoAA4oYA?format=jpg&name=4096x4096'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>        
-                <View style={styles.Screen }>
-                    <Text style={styles.TextUserName}> Email* </Text>
-                    <TextInput   style={styles.inputContainer} placeholder='Required'  value={Email} onChangeText={(value)=>setEmail(value)}  >
-                    </TextInput>
-                    <Text style={styles.TextUserName}> Password* </Text>
+                <View >
+                    <Text style={GlobalStyles.Text}> Email* </Text>
+                    <TextInput   style={GlobalStyles.InputStyle} placeholder='e.g User@test.com' placeholderTextColor='black'  value={Email} onChangeText={(value)=>setEmail(value)}  />
+                    <Text style={GlobalStyles.Text}> Password* </Text>
                     <View  style={{flexDirection:'row',alignItems:'center'}}>
-                        <TextInput style={styles.inputContainer}  placeholder='less than 10 characters' secureTextEntry={hidePass} value={Password}  onChangeText={(value)=>setPassword(value)}/>
+                        <TextInput style={GlobalStyles.InputStyle}  placeholder='less than 10 characters' secureTextEntry={hidePass} value={Password}  onChangeText={(value)=>setPassword(value)}/>
                         <Pressable  onPress={handlePasswordVisibility}>
                             <MaterialCommunityIcons name={rightIcon} size={20} color={"white"}/>
                         </Pressable>
-                        
                     </View>
-          
-                    <SafeAreaView style={{marginVertical:15,borderRadius: 8, maxWidth: 200, alignSelf:'center'}}>
-                        <Button title="Create New Account" onPress={()=>signinchange()}/>
+                    <SafeAreaView style={GlobalStyles.ViewButton}>
+                        <Button style={GlobalStyles.ButtonStyle} title="Create New Account" onPress={()=>signinchange()}/>
                     </SafeAreaView>
                 </View>
             </ImageBackground>

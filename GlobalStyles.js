@@ -18,7 +18,7 @@ import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedb
         width: 300,
         color:'black',
         padding:10,
-       
+        fontSize:15,
         
     },
     TitleStyle:
@@ -41,7 +41,7 @@ import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedb
         height:'100%',
         flex:1,
         justifyContent:"center",
-        alignItems:'center'
+        alignItems:'center',
     },
     ViewButton:
     {
@@ -54,9 +54,21 @@ import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedb
         flexDirection:'row',
         
     },
-    CheckBoxStyle:
+    TouchableStyle: 
     {
-
+        backgroundColor: '#f9c2ff',
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 16,
+        borderRadius:6,
+    },
+    ViewMiddleStyle:
+    {
+        flex:2,
+        alignItems:'flex-end',
+        justifyContent:'space-evenly',
+        marginVertical:200,
+        
     }
 }) 
  
