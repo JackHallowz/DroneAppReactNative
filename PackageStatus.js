@@ -37,7 +37,7 @@ const PackageStatus = ({navigate,route}) => {
     Alert.alert('Removal Warning','Do you really want to remove this product?',[
       {
         text: "Confirm",
-        onPress: ()=> {database().ref(newzzz).remove(); alert("Removed")}
+        onPress: ()=> {database().ref(newzzz).remove(); Alert.alert('Nortification',"Removed")}
         
       },
       {

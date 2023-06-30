@@ -14,7 +14,7 @@ export default function OrderPackage({route,navigation}) {
         const username = Object.values(route.params)
         const unsername = "/User/"+username
        const uniqueID = uuid();
-       database().ref(`${unsername}`).update(  { [title]: {ID: `: ${uniqueID}`, extractPosition: `: ${extract}`, depositePosition: `: ${deposite}`}}).then(()=>{alert('Package ' + `${title}`+' is Ordered');TextInputclear();})
+       database().ref(`${unsername}`).update(  { [title]: {ID: `: ${uniqueID}`, extractPosition: `: ${extract}`, depositePosition: `: ${deposite}`}}).then(()=>{Alert.alert('Nortification','Package ' + `${title}`+' is Ordered');TextInputclear();})
     }
 
 
