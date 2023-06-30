@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from "./GlobalStyles";
 import { firebase } from "@react-native-firebase/database";
 import CheckBox from "@react-native-community/checkbox";
-
+import background from "./assets/Clive_FF16_Wallpaper.jpg"
 const HomeScreen = ({}) =>
 {
     const [Username, setUsername] = useState('');
@@ -44,11 +44,11 @@ const HomeScreen = ({}) =>
             console.log('Logged under',user.email)
             navigation.navigate("User Screen");
         }) 
-        .catch(error => alert(error))
+        .catch(error => alert(error,clearinput()))
     }
     return(
         <TouchableWithoutFeedback  onPress={() => {Keyboard.dismiss() }} >
-            <ImageBackground source={{uri:'https://w0.peakpx.com/wallpaper/1007/301/HD-wallpaper-final-fantasy-xvi-claive-ff16-ffxvi-square-enix.jpg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }  >   
+            <ImageBackground source={background} resizeMode="cover" style={GlobalStyles.BackImageStyle }  >   
             <View >
                 <Text style={GlobalStyles.Text}  > Email </Text>
                 <TextInput style={GlobalStyles.InputStyle } value={Username}  onChangeText={(val)=> setUsername(val)}> 

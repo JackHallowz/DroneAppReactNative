@@ -35,16 +35,38 @@ function SignUp ()
         else
         {
             auth().createUserWithEmailAndPassword(Email,Password)
-            .then(()=>{console.log("User " + {Email} + " has been created");
-            database().ref('/User/').update({ [actualname] : '' });})
+            .then(()=>{database().ref('/User/').update({ [actualname] : '' });Alert.alert('Nortification','The user: '+ `${Email}` + ' been created',[
+                {
+                    text:'OK!',
+                    onPress:()=> {TextInputclear();}
+                }
+            ])})
             .catch(error => {
                 if(error.code == 'auth/email-already-in-use'){
-                    console.log('that email is already used! Please change your UserName');
+                    Alert.alert('ERROR!','that email is already used! Please change your UserName',[
+                        {
+                            text:'Understood',
+                            onPress:()=> {TextInputclear();}
+                        }
+                    ]);
                 }
                 if(error.code == 'auth/invalid-email'){
-                    console.log('Email Adress is invalid');
+                    Alert.alert('ERROR!','Email Adress is invalid',[
+                        {
+                            Text:'Understood',
+                            onPress:()=> {setEmail('')}
+                        }
+                    ]);
                 }
-                console.error(error);
+                if(error.code == 'auth/weak-password'){
+                    Alert.alert('ERROR!','Password must have at least 6 characters',[
+                        {
+                            text:'Understood',
+                            onPress:()=>{setPassword('')}
+                        }
+                    ])
+                }
+                
             }
             )            
 

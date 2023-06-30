@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedback,Keyboard, ImageBackground} from 'react-native';
+import {View, Text, Image, StyleSheet, Button,SafeAreaView,TouchableWithoutFeedback,Keyboard, ImageBackground,Alert} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import uuid from 'react-uuid';
 import database, { firebase } from '@react-native-firebase/database';
 import GlobalStyles from './GlobalStyles';
 import react from 'react';
 const ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app';
-
+import background from './assets/OrderPackage_background.jpeg'
  
 export default function OrderPackage({route,navigation}) {
     function UploadOnpress (title,extract,deposite) 
@@ -14,7 +14,7 @@ export default function OrderPackage({route,navigation}) {
         const username = Object.values(route.params)
         const unsername = "/User/"+username
        const uniqueID = uuid();
-       database().ref(`${unsername}`).update(  { [title]: {ID: `: ${uniqueID}`, extractPosition: `: ${extract}`, depositePosition: `: ${deposite}`}}).then(TextInputclear())
+       database().ref(`${unsername}`).update(  { [title]: {ID: `: ${uniqueID}`, extractPosition: `: ${extract}`, depositePosition: `: ${deposite}`}}).then(()=>{alert('Package ' + `${title}`+' is Ordered');TextInputclear();})
     }
 
 
@@ -31,7 +31,7 @@ export default function OrderPackage({route,navigation}) {
     const [dePosition, setdePosition] =  useState('');
     
  return(
-    <ImageBackground source={{uri:'https://w.forfun.com/fetch/3a/3a697f0922ca469b8ea1e05e40d02f43.jpeg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
+    <ImageBackground source={background} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
         <TouchableWithoutFeedback onPress={()=> { Keyboard.dismiss()}}> 
             <SafeAreaView style={GlobalStyles.TitleStyle}>
                 <Text style={GlobalStyles.Text}> Item Name </Text>

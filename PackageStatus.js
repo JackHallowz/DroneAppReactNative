@@ -9,7 +9,7 @@ import { TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 const ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app';
 import GlobalStyles from './GlobalStyles';
-
+import background from './assets/packagestatus_background.jpg'
   
 
 
@@ -37,7 +37,7 @@ const PackageStatus = ({navigate,route}) => {
     Alert.alert('Removal Warning','Do you really want to remove this product?',[
       {
         text: "Confirm",
-        onPress: ()=> {database().ref(newzzz).remove(); console.log("Removed")}
+        onPress: ()=> {database().ref(newzzz).remove(); alert("Removed")}
         
       },
       {
@@ -66,7 +66,7 @@ const PackageStatus = ({navigate,route}) => {
   }
   
   return ( 
-    <ImageBackground source={{uri:'https://e1.pxfuel.com/desktop-wallpaper/831/789/desktop-wallpaper-324-final-fantasy-xv-iphone-final-fantasy.jpg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
+    <ImageBackground source={background} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
       <SafeAreaView style={GlobalStyles.TitleStyle}>
       <FlatList
       data={keys}
@@ -75,6 +75,9 @@ const PackageStatus = ({navigate,route}) => {
             <Text style={styles.keys}>{item}</Text>
         </TouchableOpacity>
       )}/>   
+      <Text style={GlobalStyles.Text}>
+        Hold to delete packages
+      </Text>
         </SafeAreaView>
       </ImageBackground>  
   );

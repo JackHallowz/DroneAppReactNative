@@ -1,9 +1,10 @@
 import React, { useEffect,useState,useCallback, } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import {TextInput,SafeAreaView,StyleSheet,Text,View,FlatList,SectionList } from 'react-native';
+import {TextInput,SafeAreaView,StyleSheet,Text,View,FlatList,SectionList, ImageBackground } from 'react-native';
 import {firebase, } from '@react-native-firebase/database';
-
+import background from './assets/ItemDetail_Background.jpg'
 import GettingData from './GettingData';
+import GlobalStyles from './GlobalStyles';
 var ref = 'https://new-world-22236-default-rtdb.asia-southeast1.firebasedatabase.app';
 
 var done;
@@ -28,17 +29,15 @@ const ItemDetails = ({route,navigation}) => {
   
  
   return ( 
-    
-    <SafeAreaView style={styles.container}> 
-
-        <FlatList
-        data={datanow}
-        renderItem={({item}) =>(
-          <Text style={styles.keys}> {item}</Text>
-        )}/>
- 
-    </SafeAreaView>
-      
+    <ImageBackground source={background} style={GlobalStyles.BackImageStyle}>
+      <SafeAreaView style={styles.container}> 
+          <FlatList
+          data={datanow}
+          renderItem={({item}) =>(
+            <Text style={styles.keys}> {item}</Text>
+          )}/>
+      </SafeAreaView>
+    </ImageBackground>  
   )
 }
 

@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from './GlobalStyles';
-
+import background from './assets/UserScreen_Background.jpg'
 
 
 const UserScreen = ({navi}) =>
@@ -38,12 +38,16 @@ const UserScreen = ({navi}) =>
     function shiftRoute(Route)
     {
         console.log(Route)
+        if(Route!='Log Out')
         navigation.navigate( `${Route}` ,{username})
+        else {
+            auth().signOut();
+        }
     }
     // getUsername (user.email.substring(0,index))
     const navigation = useNavigation();
         return (
-            <ImageBackground source={{uri:'https://mfiles.alphacoders.com/835/835148.jpg'}} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
+            <ImageBackground source={background} resizeMode="cover" style={GlobalStyles.BackImageStyle }>
            
         <SafeAreaView style={GlobalStyles.TitleStyle}>
             <Text style={GlobalStyles.Text}>
